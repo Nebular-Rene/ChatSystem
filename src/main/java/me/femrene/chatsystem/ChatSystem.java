@@ -30,7 +30,7 @@ public final class ChatSystem extends JavaPlugin {
         // Check for updates if enabled
         if (getBooleanFromConf("autoUpdate")) {
             getLogger().info("Checking for updates...");
-            checkForUpdates();
+            //checkForUpdates(); // TODO: need to add in future
         }
 
         // Listener

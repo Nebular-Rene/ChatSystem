@@ -25,18 +25,20 @@ public class onChat implements Listener {
         Player p = e.getPlayer();
         String prefix = "";
         String suffix = "";
-        RegisteredServiceProvider<LuckPerms> provider = Bukkit.getServicesManager().getRegistration(LuckPerms.class);
-        if (provider != null) {
-            LuckPerms api = provider.getProvider();
-            if (ChatSystem.getBooleanFromConf("useMetaKeyAsPrefix")) {
-                prefix = api.getUserManager().getUser(p.getUniqueId()).getCachedData().getMetaData().getMetaValue(ChatSystem.getFromConf("metaPrefixString"));
-            } else {
-                prefix = api.getUserManager().getUser(p.getUniqueId()).getCachedData().getMetaData().getPrefix();
-            }
-            if (ChatSystem.getBooleanFromConf("useMetaKeyAsSuffix")) {
-                suffix = api.getUserManager().getUser(p.getUniqueId()).getCachedData().getMetaData().getMetaValue(ChatSystem.getFromConf("metaSuffixString"));
-            } else {
-                suffix = api.getUserManager().getUser(p.getUniqueId()).getCachedData().getMetaData().getSuffix();
+        if (Bukkit.getServer().getPluginManager().getPlugin("LuckPerms") != null) {
+            RegisteredServiceProvider<LuckPerms> provider = Bukkit.getServicesManager().getRegistration(LuckPerms.class);
+            if (provider != null) {
+                LuckPerms api = provider.getProvider();
+                if (ChatSystem.getBooleanFromConf("useMetaKeyAsPrefix")) {
+                    prefix = api.getUserManager().getUser(p.getUniqueId()).getCachedData().getMetaData().getMetaValue(ChatSystem.getFromConf("metaPrefixString"));
+                } else {
+                    prefix = api.getUserManager().getUser(p.getUniqueId()).getCachedData().getMetaData().getPrefix();
+                }
+                if (ChatSystem.getBooleanFromConf("useMetaKeyAsSuffix")) {
+                    suffix = api.getUserManager().getUser(p.getUniqueId()).getCachedData().getMetaData().getMetaValue(ChatSystem.getFromConf("metaSuffixString"));
+                } else {
+                    suffix = api.getUserManager().getUser(p.getUniqueId()).getCachedData().getMetaData().getSuffix();
+                }
             }
         }
         String[] s = e.getMessage().split(" ");
